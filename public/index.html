@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tilapios</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Bangers&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+      @media (max-width: 640px) {
+        .modal-content { max-width: 98vw !important; padding: 1rem !important; }
+        .modal { align-items: flex-start !important; }
+        .rounded-lg { border-radius: 1rem !important; }
+        .p-8 { padding: 1.5rem !important; }
+        .p-6 { padding: 1rem !important; }
+        .p-4 { padding: 0.75rem !important; }
+        .w-32, .h-32 { width: 5.5rem !important; height: 5.5rem !important; }
+        .w-12, .h-12 { width: 2.5rem !important; height: 2.5rem !important; }
+        .text-3xl { font-size: 1.5rem !important; }
+        .text-4xl { font-size: 2rem !important; }
+        .text-lg { font-size: 1rem !important; }
+        .text-sm { font-size: 0.95rem !important; }
+        .gap-4 { gap: 0.5rem !important; }
+        .gap-6 { gap: 1rem !important; }
+        .rounded { border-radius: 0.7rem !important; }
+        .rounded-full { border-radius: 9999px !important; }
+        .py-3, .py-2, .py-1 { padding-top: 0.7rem !important; padding-bottom: 0.7rem !important; }
+        .px-4, .px-3, .px-2, .px-1 { padding-left: 0.7rem !important; padding-right: 0.7rem !important; }
+        .container { padding-left: 0.5rem !important; padding-right: 0.5rem !important; }
+        .max-w-lg, .max-w-md, .max-w-3xl { max-width: 98vw !important; }
+        .overflow-x-auto { -webkit-overflow-scrolling: touch; }
+        .modal { min-height: 100vh !important; }
+      }
+      @media (max-width: 400px) {
+        .text-3xl, .text-4xl { font-size: 1.1rem !important; }
+        .w-32, .h-32 { width: 3.5rem !important; height: 3.5rem !important; }
+        .w-12, .h-12 { width: 1.7rem !important; height: 1.7rem !important; }
+      }
+    </style>
+</head>
+<body class="bg-blue-50">
+    <!-- Loading Spinner -->
+    <div id="loading-spinner" class="fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center z-[100]">
+        <div class="text-center text-white">
+            <i class="fas fa-fish fa-4x fa-beat-fade"></i>
+            <p class="text-2xl font-bangers mt-4 tracking-wider">Carregando o Anzol...</p>
+        </div>
+    </div>
+    <!-- Main Content -->
+    <div id="main-content" class="invisible">
+        <header class="bg-white border-b border-gray-200 sticky top-0 z-50 w-full">
+            <div class="flex items-center justify-between px-2 py-2">
+                <div class="flex gap-1">
+                    <button id="profile-btn" class="text-blue-700 bg-transparent p-2 rounded-full hover:bg-blue-100 hidden" title="Meu Perfil">
+                        <i class="fas fa-user-circle text-2xl"></i>
+                    </button>
+                    <button id="report-btn" class="text-green-700 bg-transparent p-2 rounded-full hover:bg-green-100 hidden" title="Meus Lançamentos">
+                        <i class="fas fa-list-alt text-2xl"></i>
+                    </button>
+                </div>
+                <h1 class="font-bangers text-2xl text-blue-800 tracking-widest text-center flex-1">TILAPIOS</h1>
+                <button id="logout-btn" class="text-red-600 bg-transparent p-2 rounded-full hover:bg-red-100 hidden" title="Sair">
+                    <i class="fas fa-sign-out-alt text-2xl"></i>
+                </button>
+            </div>
+        </header>
+        <main class="container mx-auto p-4 md:p-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div class="lg:col-span-1 bg-white p-6 rounded-xl shadow-lg h-fit">
+                <div id="king-of-month-anchor"></div>
+                <div class="mb-4 flex flex-col items-center">
+                    <div class="flex gap-2 items-center mb-2">
+                        <select id="ranking-mode" class="border-2 border-gray-300 rounded-lg p-2 text-sm focus:outline-none focus:border-blue-500">
+                            <option value="weight">Por Quilos</option>
+                            <option value="count">Por Quantidade</option>
+                            <option value="points">Por Pontos</option>
+                            <option value="avg-per-day">Média por Dia</option>
+                        </select>
+                        <button id="open-points-info" class="ml-2 px-3 py-1 bg-blue-100 text-blue-800 rounded-lg border border-blue-300 text-xs font-bold hover:bg-blue-200 transition">Como funciona o sistema de pontos?</button>
+                    </div>
+                    <h2 class="text-3xl font-bangers text-gray-800 tracking-wider text-center"><i class="fas fa-trophy text-yellow-500"></i> Liga da Pesca</h2>
+                </div>
+                <div id="ranking-list" class="space-y-3"></div>
+            </div>
+            <div class="lg:col-span-2 space-y-6">
+                <div id="king-of-month" class="max-w-lg mx-auto mb-4 mt-2">
+                    <div class="flex flex-col items-center justify-center bg-gradient-to-r from-yellow-200 via-yellow-100 to-yellow-50 border-4 border-yellow-400 rounded-2xl shadow-xl p-6 relative">
+                        <div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-white rounded-full p-2 shadow-lg border-4 border-yellow-400">
+                            <i class="fas fa-trophy text-4xl text-yellow-500"></i>
+                        </div>
+                        <img id="king-photo" src="" alt="Rei do Lago" class="w-24 h-24 rounded-full border-4 border-yellow-400 object-cover mt-8 mb-2 shadow-md">
+                        <span class="text-2xl font-extrabold text-yellow-700 flex items-center gap-2 mb-1">Rei do Lago do Mês</span>
+                        <p id="king-name" class="text-lg font-bold text-gray-800 mb-1"></p>
+                        <p id="king-points" class="text-base text-gray-700"></p>
+                    </div>
+                </div>
+                <div id="king-of-month-anchor"></div>
+                <div class="bg-white p-4 rounded-xl shadow-lg text-center">
+                    <button id="add-catch-btn" class="w-full md:w-auto bg-green-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-green-700 transition-transform transform hover:scale-105 text-lg">
+                        <i class="fas fa-plus-circle mr-2"></i> Registrar Nova Captura
+                    </button>
+                </div>
+                <div>
+                    <h2 class="text-3xl font-bangers text-gray-800 mb-4 tracking-wider"><i class="fas fa-newspaper text-blue-500"></i> Feed</h2>
+                    <div id="feed-container" class="space-y-6"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Add Catch Modal -->
+    <div id="add-catch-modal" class="modal">
+        <div class="modal-content bg-white shadow-2xl rounded-lg p-8 w-full max-w-lg">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-3xl font-bangers text-blue-800 tracking-wider">Registrar Peixão</h2>
+                <button id="close-catch-modal" class="text-gray-500 hover:text-red-600 text-2xl">&times;</button>
+            </div>
+            <form id="catch-form">
+                <div class="mb-4">
+                    <label class="block text-gray-700 font-bold mb-2">Espécie do Bicho:</label>
+                    <select name="species" class="w-full p-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 transition-colors" required>
+                        <option value="">Selecione a espécie...</option>
+                        <option value="Barbado">Barbado</option>
+                        <option value="Dourado">Dourado</option>
+                        <option value="Matrinxã">Matrinxã</option>
+                        <option value="Pacu">Pacu</option>
+                        <option value="Pirarara">Pirarara</option>
+                        <option value="Pirarucu">Pirarucu</option>
+                        <option value="Pintado">Pintado</option>
+                        <option value="Tambacu">Tambacu</option>
+                        <option value="Tambaqui">Tambaqui</option>
+                        <option value="Tilapia">Tilapia</option>
+                        <option value="Tucunaré">Tucunaré</option>
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 font-bold mb-2">Peso (em kg):</label>
+                    <input type="number" step="0.01" name="weight" placeholder="Ex: 5.75" class="w-full p-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 transition-colors" required>
+                </div>
+                <div class="mb-6">
+                    <label class="block text-gray-700 font-bold mb-2">Foto com o Troféu:</label>
+                    <label for="fish-photo-input" class="w-full cursor-pointer bg-gray-200 text-gray-700 font-semibold py-3 px-4 rounded-lg inline-block text-center hover:bg-gray-300 transition-colors">
+                        <i class="fas fa-camera"></i> Tirar / Escolher Foto
+                    </label>
+                    <input type="file" id="fish-photo-input" name="photo" accept="image/*" capture="environment" class="hidden">
+                    <p id="file-name" class="text-sm text-gray-500 mt-2"></p>
+                </div>
+                <button type="submit" id="submit-catch-btn" class="w-full bg-blue-600 text-white font-bold py-3 rounded-lg hover:bg-blue-700 transition-transform transform hover:scale-105 text-lg disabled:bg-gray-400">
+                    Salvar Captura
+                </button>
+                 <p id="catch-error" class="text-red-500 text-sm mt-4 text-center"></p>
+            </form>
+        </div>
+    </div>
+    <!-- Modal de Perfil do Pescador -->
+    <div id="profile-modal" class="modal" style="display:none;">
+      <div class="modal-content bg-white shadow-2xl rounded-lg p-8 w-full max-w-lg relative">
+        <button id="close-profile-modal" class="absolute top-2 right-4 text-gray-500 hover:text-red-600 text-2xl">&times;</button>
+        <div id="profile-info"></div>
+        <h3 class="text-xl font-bold mt-6 mb-2">Insígnias</h3>
+        <div id="profile-badges" class="flex flex-wrap gap-3"></div>
+      </div>
+    </div>
+    <!-- Modal de explicação do sistema de pontos -->
+    <div id="points-info-modal" class="modal" style="display:none;">
+      <div class="modal-content bg-white shadow-2xl rounded-lg p-8 w-full max-w-lg relative">
+        <button id="close-points-info-modal" class="absolute top-2 right-4 text-gray-500 hover:text-red-600 text-2xl">&times;</button>
+        <h2 class="text-2xl font-bold mb-4 text-blue-800">Como funciona o sistema de pontos?</h2>
+        <div class="text-gray-700 text-sm space-y-4">
+          <p>
+            <b>🎯 Objetivo:</b> Ganhe pontos registrando pescarias e conquiste seu lugar no topo do ranking!
+          </p>
+          <div class="bg-blue-50 border-l-4 border-blue-400 p-3 rounded mb-2">
+            <b>🧮 Fórmula:</b><br>
+            <span class="font-mono text-blue-900">Pontos = Peso do Peixe × Fator da Espécie</span>
+          </div>
+          <ul class="list-disc ml-6">
+            <li><b>🐟 Fator por espécie:</b></li>
+            <ul class="ml-4">
+              <li>Barbado: <span class="font-bold text-blue-700">3x</span></li>
+              <li>Dourado: <span class="font-bold text-blue-700">2,5x</span></li>
+              <li>Matrinxã: <span class="font-bold text-blue-700">2x</span></li>
+              <li>Pacu: <span class="font-bold text-blue-700">2x</span></li>
+              <li>Pirarara: <span class="font-bold text-blue-700">3x</span></li>
+              <li>Pirarucu: <span class="font-bold text-blue-700">4x</span></li>
+              <li>Pintado: <span class="font-bold text-blue-700">3x</span></li>
+              <li>Tambacu: <span class="font-bold text-blue-700">3x</span></li>
+              <li>Tambaqui: <span class="font-bold text-blue-700">3x</span></li>
+              <li>Tilapia: <span class="font-bold text-blue-700">0,5x</span></li>
+              <li>Tucunaré: <span class="font-bold text-blue-700">4x</span></li>
+            </ul>
+          </ul>
+          <div class="bg-yellow-50 border-l-4 border-yellow-400 p-3 rounded mb-2">
+            <b>📈 Exemplo prático:</b><br>
+            Se você pescar uma <b>Pirarara</b> de <b>8kg</b>:<br>
+            <span class="font-mono text-green-700">Pontos = 8 × 3 = 24</span>
+          </div>
+          <p><b>🏆 Faixas do Ranking:</b></p>
+          <ul class="list-disc ml-6">
+            <li><span class="font-bold text-yellow-600">Top 1: Rei do Lago 👑 (nome em dourado)</span></li>
+            <li><span class="font-bold text-pink-600">Último: Pesca Fofo 🧸</span></li>
+            <li>2º lugar: Veterano</li>
+            <li>3º lugar: Desafiante</li>
+            <li>Demais posições: Aspirante</li>
+          </ul>
+          <div class="bg-green-50 border-l-4 border-green-400 p-3 rounded mt-2">
+            <b>💡 Dica:</b> Busque o topo para virar o Rei do Lago e evite a última posição para não virar o Pesca Fofo!
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Auth Modal -->
+    <div id="auth-modal" class="modal" style="display:none;">
+      <div class="modal-content bg-white shadow-2xl rounded-lg p-8 w-full max-w-md">
+        <div id="auth-tabs" class="flex justify-center mb-6">
+          <button id="show-login" class="font-bold text-blue-700 px-4 py-2 border-b-2 border-blue-700">Entrar</button>
+          <button id="show-register" class="font-bold text-gray-400 px-4 py-2 ml-4">Cadastrar</button>
+        </div>
+        <!-- Login Form -->
+        <form id="login-form" class="space-y-4">
+          <input type="email" id="login-email" placeholder="E-mail" class="w-full p-3 border-2 border-gray-300 rounded-lg" required>
+          <input type="password" id="login-password" placeholder="Senha" class="w-full p-3 border-2 border-gray-300 rounded-lg" required>
+          <button type="submit" class="w-full bg-blue-600 text-white font-bold py-3 rounded-lg hover:bg-blue-700 transition-transform">Entrar</button>
+          <p id="login-error" class="text-red-500 text-sm mt-2 text-center"></p>
+          <p class="text-center text-sm"><a href="#" id="forgot-password" class="text-blue-700 underline">Esqueci minha senha?</a></p>
+          <p class="text-center text-sm">Não tem conta? <a href="#" id="to-register" class="text-blue-700 underline">Cadastre-se</a></p>
+        </form>
+        <!-- Register Form -->
+        <form id="register-form" class="space-y-4 hidden">
+          <input type="email" id="register-email" placeholder="E-mail" class="w-full p-3 border-2 border-gray-300 rounded-lg" required>
+          <input type="password" id="register-password" placeholder="Senha" class="w-full p-3 border-2 border-gray-300 rounded-lg" required>
+          <input type="text" id="register-nickname" placeholder="Apelido (nome de guerra)" class="w-full p-3 border-2 border-gray-300 rounded-lg" required>
+          <div>
+            <label class="block text-gray-700 font-bold mb-2">Escolha seu avatar:</label>
+            <div id="avatar-options" class="grid grid-cols-4 gap-4 justify-center">
+              <img src="avatars/fish.svg" alt="Peixe 1" class="avatar-option w-16 h-16 rounded-full border-4 border-transparent cursor-pointer bg-blue-100" data-avatar="avatars/fish.svg" title="Peixe 1">
+              <img src="avatars/fishing.svg" alt="Pescador" class="avatar-option w-16 h-16 rounded-full border-4 border-transparent cursor-pointer bg-green-100" data-avatar="avatars/fishing.svg" title="Pescador">
+              <img src="avatars/fishing-rod.svg" alt="Vara de Pesca" class="avatar-option w-16 h-16 rounded-full border-4 border-transparent cursor-pointer bg-yellow-100" data-avatar="avatars/fishing-rod.svg" title="Vara de Pesca">
+              <img src="avatars/fishing-boat.svg" alt="Barco de Pesca" class="avatar-option w-16 h-16 rounded-full border-4 border-transparent cursor-pointer bg-indigo-✔  hosting[default]: Local server: http://localhost:5000100" data-avatar="avatars/fishing-boat.svg" title="Barco de Pesca">
+              <!-- Adicione mais imagens locais -->
+            </div>
+            <input type="hidden" id="register-avatar" name="avatar" required>
+            <p id="avatar-error" class="text-red-500 text-sm mt-2 text-center"></p>
+          </div>
+          <div class="mt-4">
+            <label class="block text-gray-700 font-bold mb-2">Ou envie sua foto:</label>
+            <label for="register-photo-input" class="w-full cursor-pointer bg-gray-200 text-gray-700 font-semibold py-2 px-4 rounded-lg inline-block text-center hover:bg-gray-300 transition-colors">
+              <i class="fas fa-camera"></i> Tirar / Escolher Foto
+            </label>
+            <input type="file" id="register-photo-input" name="photo" accept="image/*" capture="environment" class="hidden">
+            <p id="register-photo-name" class="text-sm text-gray-500 mt-2"></p>
+            <img id="register-photo-preview" src="" alt="Prévia da foto" class="w-20 h-20 object-cover rounded-full mt-2 border-2 border-gray-300 hidden">
+          </div>
+          <button type="submit" class="w-full bg-green-600 text-white font-bold py-3 rounded-lg hover:bg-green-700 transition-transform">Cadastrar</button>
+          <p id="register-error" class="text-red-500 text-sm mt-2 text-center"></p>
+          <p class="text-center text-sm">Já tem conta? <a href="#" id="to-login" class="text-blue-700 underline">Entrar</a></p>
+        </form>
+      </div>
+    </div>
+    <!-- Modal de Edição de Perfil -->
+    <div id="edit-profile-modal" class="modal" style="display:none;">
+      <div class="modal-content bg-white shadow-2xl rounded-lg p-8 w-full max-w-md">
+        <h3 class="text-2xl font-bold text-center text-gray-700 mb-4">Editar Perfil</h3>
+        <form id="edit-profile-form" class="space-y-4">
+          <input type="text" id="edit-nickname" placeholder="Nome de guerra" class="w-full p-3 border-2 border-gray-300 rounded-lg" required>
+          <div>
+            <label class="block text-gray-700 font-bold mb-2">Escolha seu avatar:</label>
+            <div id="edit-avatar-options" class="grid grid-cols-4 gap-4 justify-center">
+              <img src="https://api.dicebear.com/7.x/adventurer/svg?seed=Man1" alt="Avatar Masculino 1" class="edit-avatar-option w-16 h-16 rounded-full border-4 border-transparent cursor-pointer" data-avatar="https://api.dicebear.com/7.x/adventurer/svg?seed=Man1" title="Avatar Masculino 1">
+              <img src="https://api.dicebear.com/7.x/adventurer/svg?seed=Woman1" alt="Avatar Feminino 1" class="edit-avatar-option w-16 h-16 rounded-full border-4 border-transparent cursor-pointer" data-avatar="https://api.dicebear.com/7.x/adventurer/svg?seed=Woman1" title="Avatar Feminino 1">
+              <img src="https://api.dicebear.com/7.x/adventurer/svg?seed=Strong" alt="Avatar Fortão" class="edit-avatar-option w-16 h-16 rounded-full border-4 border-transparent cursor-pointer" data-avatar="https://api.dicebear.com/7.x/adventurer/svg?seed=Strong" title="Avatar Fortão">
+              <img src="https://api.dicebear.com/7.x/adventurer/svg?seed=Chubby" alt="Avatar Gordinho" class="edit-avatar-option w-16 h-16 rounded-full border-4 border-transparent cursor-pointer" data-avatar="https://api.dicebear.com/7.x/adventurer/svg?seed=Chubby" title="Avatar Gordinho">
+              <img src="https://api.dicebear.com/7.x/adventurer/svg?seed=LGBT" alt="Avatar LGBT" class="edit-avatar-option w-16 h-16 rounded-full border-4 border-transparent cursor-pointer" data-avatar="https://api.dicebear.com/7.x/adventurer/svg?seed=LGBT" title="Avatar LGBT">
+              <img src="https://api.dicebear.com/7.x/adventurer/svg?seed=Old" alt="Avatar Idoso" class="edit-avatar-option w-16 h-16 rounded-full border-4 border-transparent cursor-pointer" data-avatar="https://api.dicebear.com/7.x/adventurer/svg?seed=Old" title="Avatar Idoso">
+              <img src="https://api.dicebear.com/7.x/adventurer/svg?seed=Kid" alt="Avatar Criança" class="edit-avatar-option w-16 h-16 rounded-full border-4 border-transparent cursor-pointer" data-avatar="https://api.dicebear.com/7.x/adventurer/svg?seed=Kid" title="Avatar Criança">
+              <img src="https://api.dicebear.com/7.x/adventurer/svg?seed=Funny" alt="Avatar Engraçado" class="edit-avatar-option w-16 h-16 rounded-full border-4 border-transparent cursor-pointer" data-avatar="https://api.dicebear.com/7.x/adventurer/svg?seed=Funny" title="Avatar Engraçado">
+            </div>
+            <input type="hidden" id="edit-avatar" name="avatar" required>
+            <p id="edit-avatar-error" class="text-red-500 text-sm mt-2 text-center"></p>
+          </div>
+          <div class="mt-4">
+            <label class="block text-gray-700 font-bold mb-2">Ou envie sua foto:</label>
+            <label for="edit-profile-photo-input" class="w-full cursor-pointer bg-gray-200 text-gray-700 font-semibold py-2 px-4 rounded-lg inline-block text-center hover:bg-gray-300 transition-colors">
+              <i class="fas fa-camera"></i> Tirar / Escolher Foto
+            </label>
+            <input type="file" id="edit-profile-photo-input" name="photo" accept="image/*" capture="environment" class="hidden">
+            <p id="edit-profile-photo-name" class="text-sm text-gray-500 mt-2"></p>
+            <img id="edit-profile-photo-preview" src="" alt="Prévia da foto" class="w-20 h-20 object-cover rounded-full mt-2 border-2 border-gray-300 hidden">
+          </div>
+          <button type="submit" class="w-full bg-blue-600 text-white font-bold py-3 rounded-lg hover:bg-blue-700 transition-transform">Salvar</button>
+          <p id="edit-profile-error" class="text-red-500 text-sm mt-2 text-center"></p>
+        </form>
+      </div>
+    </div>
+    <!-- Modal de Edição de Captura -->
+    <div id="edit-catch-modal" class="modal" style="display:none;">
+      <div class="modal-content bg-white shadow-2xl rounded-lg p-8 w-full max-w-lg">
+        <div class="flex justify-between items-center mb-6">
+          <h2 class="text-3xl font-bangers text-blue-800 tracking-wider">Editar Captura</h2>
+          <button id="close-edit-catch-modal" class="text-gray-500 hover:text-red-600 text-2xl">&times;</button>
+        </div>
+        <form id="edit-catch-form">
+          <div class="mb-4">
+            <label class="block text-gray-700 font-bold mb-2">Espécie do Bicho:</label>
+            <select name="species" id="edit-species" class="w-full p-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 transition-colors" required>
+              <option value="">Selecione a espécie...</option>
+              <option value="Barbado">Barbado</option>
+              <option value="Dourado">Dourado</option>
+              <option value="Matrinxã">Matrinxã</option>
+              <option value="Pacu">Pacu</option>
+              <option value="Pirarara">Pirarara</option>
+              <option value="Pirarucu">Pirarucu</option>
+              <option value="Pintado">Pintado</option>
+              <option value="Tambacu">Tambacu</option>
+              <option value="Tambaqui">Tambaqui</option>
+              <option value="Tilapia">Tilapia</option>
+              <option value="Tucunaré">Tucunaré</option>
+            </select>
+          </div>
+          <div class="mb-4">
+            <label class="block text-gray-700 font-bold mb-2">Peso (em kg):</label>
+            <input type="number" step="0.01" name="weight" id="edit-weight" placeholder="Ex: 5.75" class="w-full p-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 transition-colors" required>
+          </div>
+          <div class="mb-6">
+            <label class="block text-gray-700 font-bold mb-2">Foto com o Troféu:</label>
+            <label for="edit-fish-photo-input" class="w-full cursor-pointer bg-gray-200 text-gray-700 font-semibold py-3 px-4 rounded-lg inline-block text-center hover:bg-gray-300 transition-colors">
+              <i class="fas fa-camera"></i> Tirar / Escolher Nova Foto
+            </label>
+            <input type="file" id="edit-fish-photo-input" name="photo" accept="image/*" capture="environment" class="hidden">
+            <p id="edit-file-name" class="text-sm text-gray-500 mt-2"></p>
+            <img id="edit-current-photo" src="" alt="Foto atual" class="w-32 h-32 object-cover rounded-lg mt-2 border-2 border-gray-300">
+          </div>
+          <button type="submit" id="submit-edit-catch-btn" class="w-full bg-blue-600 text-white font-bold py-3 rounded-lg hover:bg-blue-700 transition-transform transform hover:scale-105 text-lg disabled:bg-gray-400">
+            Salvar Alterações
+          </button>
+          <p id="edit-catch-error" class="text-red-500 text-sm mt-4 text-center"></p>
+        </form>
+      </div>
+    </div>
+    <!-- Modal de Relatório -->
+    <div id="report-modal" class="modal" style="display:none;">
+      <div class="modal-content bg-white shadow-2xl rounded-lg p-8 w-full max-w-3xl">
+        <div class="flex justify-between items-center mb-6">
+          <h2 class="text-3xl font-bangers text-blue-800 tracking-wider">Relatório de Lançamentos</h2>
+          <button id="close-report-modal" class="text-gray-500 hover:text-red-600 text-2xl">&times;</button>
+        </div>
+        <div id="report-filter" class="mb-4"></div>
+        <div class="overflow-x-auto">
+          <table class="min-w-full text-sm text-left whitespace-nowrap">
+            <thead>
+              <tr class="bg-blue-100">
+                <th class="px-4 py-2">Espécie</th>
+                <th class="px-4 py-2">Peso (kg)</th>
+                <th class="px-4 py-2">Data</th>
+                <th class="px-4 py-2">Foto</th>
+                <th class="px-4 py-2">Ações</th>
+              </tr>
+            </thead>
+            <tbody id="report-table-body"></tbody>
+          </table>
+        </div>
+        <p id="report-empty" class="text-gray-500 text-center mt-4 hidden">Nenhum lançamento encontrado.</p>
+      </div>
+    </div>
+    <script type="module" src="firebaseConfig.js"></script>
+    <script type="module" src="app.js"></script>
+</body>
+</html>

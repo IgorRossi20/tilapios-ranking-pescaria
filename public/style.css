@@ -1,0 +1,2054 @@
+body {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, #e0e7ff 0%, #f0f4f8 100%);
+    min-height: 100vh;
+    color: #22223b;
+    transition: background 0.5s;
+}
+.font-bangers {
+    font-family: 'Bangers', cursive;
+    letter-spacing: 2px;
+}
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 50;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background: rgba(30,41,59,0.6);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.3s;
+}
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+.modal-content {
+    background: linear-gradient(120deg, #fff 60%, #e0e7ff 100%);
+    padding: 32px 24px;
+    border-radius: 18px;
+    box-shadow: 0 8px 32px rgba(30,41,59,0.15);
+    width: 90%;
+    max-width: 520px;
+    animation: popIn 0.4s;
+}
+@keyframes popIn {
+    0% { transform: scale(0.95); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+button, .btn {
+    background: linear-gradient(90deg, #2563eb 0%, #38bdf8 100%);
+    color: #fff;
+    font-weight: 600;
+    border: none;
+    border-radius: 12px;
+    padding: 0.75rem 1.5rem;
+    box-shadow: 0 2px 8px rgba(56,189,248,0.10);
+    transition: background 0.3s, transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+}
+button:hover, .btn:hover {
+    background: linear-gradient(90deg, #38bdf8 0%, #2563eb 100%);
+    transform: translateY(-2px) scale(1.04);
+    box-shadow: 0 4px 16px rgba(56,189,248,0.18);
+}
+.crown-gold { color: #FFD700; text-shadow: 0 2px 8px #fffbe7; }
+.crown-silver { color: #C0C0C0; text-shadow: 0 2px 8px #f8f8f8; }
+.crown-bronze { color: #CD7F32; text-shadow: 0 2px 8px #fff3e0; }
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 7px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #e0e7ef;
+    border-radius: 8px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #38bdf8;
+    border-radius: 8px;
+    transition: background 0.3s;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #2563eb;
+}
+.card, .bg-white {
+    background: linear-gradient(120deg, #fff 80%, #e0e7ff 100%);
+    border-radius: 18px;
+    box-shadow: 0 4px 24px rgba(30,41,59,0.07);
+    transition: box-shadow 0.3s;
+}
+.card:hover, .bg-white:hover {
+    box-shadow: 0 8px 32px rgba(56,189,248,0.13);
+}
+input, select, textarea {
+    border-radius: 10px;
+    border: 1.5px solid #cbd5e1;
+    padding: 0.7rem 1rem;
+    font-size: 1rem;
+    transition: border 0.2s, box-shadow 0.2s;
+}
+input:focus, select:focus, textarea:focus {
+    border-color: #38bdf8;
+    box-shadow: 0 0 0 2px #bae6fd;
+    outline: none;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.poop-icon { color: #795548; }
+.comment-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.comment-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.comment-scrollbar::-
