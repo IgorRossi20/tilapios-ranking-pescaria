@@ -1,0 +1,54 @@
+{
+  "name": "tilapios-firebase-mcp",
+  "version": "1.0.0",
+  "description": "MCP Server para integração Firebase - Projeto Tilapios",
+  "main": "mcp-server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node mcp-server.js",
+    "dev": "nodemon mcp-server.js",
+    "install-deps": "npm install",
+    "test-mcp": "node -e \"console.log('Testando MCP Server...'); require('./mcp-server.js')\"",
+    "firebase-login": "firebase login",
+    "firebase-init": "firebase init",
+    "firebase-deploy": "firebase deploy --only hosting",
+    "firebase-serve": "firebase serve --only hosting"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^0.5.0",
+    "firebase-admin": "^12.0.0",
+    "firebase-tools": "^13.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "mcp",
+    "firebase",
+    "model-context-protocol",
+    "tilapios",
+    "fishing-app"
+  ],
+  "author": "Projeto Tilapios",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/seu-usuario/tilapios.git"
+  },
+  "bugs": {
+    "url": "https://github.com/seu-usuario/tilapios/issues"
+  },
+  "homepage": "https://pescador-79e00.web.app",
+  "mcp": {
+    "server": {
+      "command": "node",
+      "args": ["mcp-server.js"],
+      "env": {
+        "FIREBASE_PROJECT_ID": "pescador-79e00"
+      }
+    }
+  }
+}

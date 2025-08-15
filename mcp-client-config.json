@@ -1,0 +1,39 @@
+{
+  "mcpServers": {
+    "firebase-tilapios": {
+      "command": "node",
+      "args": ["mcp-server.js"],
+      "cwd": "C:\\Users\\igor_\\OneDrive\\Área de Trabalho\\ESTUDOS\\PROJETOS\\TILAPIOS",
+      "env": {
+        "FIREBASE_PROJECT_ID": "pescador-79e00",
+        "NODE_ENV": "development"
+      },
+      "description": "Servidor MCP para integração com Firebase do projeto Tilapios",
+      "capabilities": [
+        "firebase_deploy",
+        "firestore_query",
+        "auth_list_users",
+        "firebase_status"
+      ]
+    }
+  },
+  "globalSettings": {
+    "logLevel": "info",
+    "timeout": 30000,
+    "retries": 3
+  },
+  "instructions": {
+    "setup": [
+      "1. Instale as dependências: npm install",
+      "2. Configure as credenciais do Firebase (GOOGLE_APPLICATION_CREDENTIALS)",
+      "3. Verifique se o Firebase CLI está instalado e autenticado",
+      "4. Execute o servidor: npm start"
+    ],
+    "usage": [
+      "Use 'firebase_deploy' para fazer deploy da aplicação",
+      "Use 'firestore_query' para consultar dados no Firestore",
+      "Use 'auth_list_users' para listar usuários autenticados",
+      "Use 'firebase_status' para verificar o status do projeto"
+    ]
+  }
+}

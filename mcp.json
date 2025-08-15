@@ -1,0 +1,80 @@
+{
+  "mcpVersion": "2024-11-05",
+  "name": "firebase-mcp-server",
+  "description": "MCP Server para integração com Firebase - Projeto Tilapios",
+  "version": "1.0.0",
+  "server": {
+    "command": "node",
+    "args": ["mcp-server.js"],
+    "env": {
+      "FIREBASE_PROJECT_ID": "pescador-79e00",
+      "FIREBASE_CONFIG_PATH": "./firebaseConfig.js"
+    }
+  },
+  "capabilities": {
+    "resources": {
+      "firebase/auth": {
+        "description": "Gerenciamento de autenticação Firebase",
+        "mimeType": "application/json"
+      },
+      "firebase/firestore": {
+        "description": "Operações no Firestore",
+        "mimeType": "application/json"
+      },
+      "firebase/hosting": {
+        "description": "Gerenciamento do Firebase Hosting",
+        "mimeType": "application/json"
+      }
+    },
+    "tools": {
+      "firebase_deploy": {
+        "description": "Deploy para Firebase Hosting",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "target": {
+              "type": "string",
+              "description": "Target do deploy (hosting, functions, etc.)"
+            }
+          }
+        }
+      },
+      "firestore_query": {
+        "description": "Consultar dados no Firestore",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "collection": {
+              "type": "string",
+              "description": "Nome da coleção"
+            },
+            "filters": {
+              "type": "array",
+              "description": "Filtros para a consulta"
+            }
+          }
+        }
+      },
+      "auth_manage_users": {
+        "description": "Gerenciar usuários do Firebase Auth",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "action": {
+              "type": "string",
+              "enum": ["list", "create", "delete", "update"]
+            },
+            "userId": {
+              "type": "string",
+              "description": "ID do usuário (para ações específicas)"
+            }
+          }
+        }
+      }
+    }
+  },
+  "logging": {
+    "level": "info",
+    "file": "mcp-firebase.log"
+  }
+}
