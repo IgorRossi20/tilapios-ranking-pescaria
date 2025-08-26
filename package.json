@@ -16,7 +16,10 @@
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^0.5.0",
-    "firebase-admin": "^12.0.0",
+    "@supabase/supabase-js": "^2.55.0",
+    "dotenv": "^17.2.1",
+    "firebase": "^12.1.0",
+    "firebase-admin": "^12.7.0",
     "firebase-tools": "^13.0.0"
   },
   "devDependencies": {
@@ -45,7 +48,9 @@
   "mcp": {
     "server": {
       "command": "node",
-      "args": ["mcp-server.js"],
+      "args": [
+        "mcp-server.js"
+      ],
       "env": {
         "FIREBASE_PROJECT_ID": "pescador-79e00"
       }

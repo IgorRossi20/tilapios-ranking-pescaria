@@ -59,6 +59,9 @@ async function handleLogin(e) {
       case 'auth/too-many-requests':
         errorMessage = 'Muitas tentativas. Tente novamente mais tarde.';
         break;
+      case 'auth/invalid-credential':
+        errorMessage = 'Email ou senha incorretos. Verifique suas credenciais.';
+        break;
     }
     
     showAuthMessage(errorMessage);
@@ -159,7 +162,68 @@ async function handleForgotPassword(e) {
   }
 }
 
-// Funções duplicadas removidas - definições estão no início do arquivo
+// Adicionar botão de logout
+function addLogoutButton() {
+  const header = document.querySelector('header .flex.items-center.justify-between');
+  if (header && !document.getElementById('logout-btn')) {
+    const logoutBtn = document.createElement('button');
+    logoutBtn.id = 'logout-btn';
+    logoutBtn.className = 'hidden bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition-colors';
+    logoutBtn.innerHTML = '<i class="fas fa-sign-out-alt mr-2"></i>Sair';
+    logoutBtn.addEventListener('click', handleLogout);
+    header.appendChild(logoutBtn);
+  }
+}
+
+// Manipular logout
+async function handleLogout() {
+  try {
+    await signOut(auth);
+    console.log('Logout realizado com sucesso');
+  } catch (error) {
+    console.error('Erro no logout:', error);
+  }
+}
+
+// Carregar dados do usuário
+async function loadUserData() {
+  if (!currentUser) return;
+  
+  try {
+    // Mostrar botão de logout
+    const logoutBtn = document.getElementById('logout-btn');
+    if (logoutBtn) {
+      logoutBtn.classList.remove('hidden');
+    }
+    
+    // Carregar capturas do Firestore
+    const capturesQuery = query(
+      collection(db, 'captures'),
+      where('userId', '==', currentUser.uid),
+      orderBy('timestamp', 'desc')
+    );
+    
+    const querySnapshot = await getDocs(capturesQuery);
+    userCapturesData = [];
+    
+    querySnapshot.forEach((doc) => {
+      userCapturesData.push({
+        id: doc.id,
+        ...doc.data()
+      });
+    });
+    
+    // Atualizar interface
+    updateCapturesDisplay();
+    updateStatistics();
+    updateRankingDisplay();
+    
+    console.log(`Carregadas ${userCapturesData.length} capturas do usuário`);
+    
+  } catch (error) {
+    console.error('Erro ao carregar dados do usuário:', error);
+  }
+}
 
 // Inicializar sistema de autenticação
 function initAuthSystem() {
@@ -202,6 +266,18 @@ function initAuthSystem() {
       e.preventDefault();
       console.log('Voltando para formulário de login');
       showLoginForm();
+    } else if (e.target.id === 'editProfileBtn') {
+      e.preventDefault();
+      openEditProfileModal();
+    } else if (e.target.id === 'changePhotoBtn') {
+      e.preventDefault();
+      changeProfilePhoto();
+    } else if (e.target.id === 'closeEditProfileModal') {
+      e.preventDefault();
+      closeEditProfileModal();
+    } else if (e.target.id === 'saveProfileBtn') {
+      e.preventDefault();
+      saveProfileChanges();
     }
   });
   
@@ -308,8 +384,22 @@ function showAuthMessage(message, type = 'error') {
 }
 
 // Aguardar o DOM estar pronto
+// Função para forçar logout e limpar sessão
+async function forceLogout() {
+  try {
+    await signOut(auth);
+    currentUser = null;
+    console.log('Usuário deslogado com sucesso');
+  } catch (error) {
+    console.log('Erro ao fazer logout:', error);
+  }
+}
+
 function initApp() {
   console.log('Inicializando aplicação...');
+  
+  // Forçar logout para garantir que o usuário faça login
+  forceLogout();
   
   // Simular carregamento com feedback visual
   setTimeout(() => {
@@ -319,11 +409,7 @@ function initApp() {
       loading.style.transform = 'scale(0.95)';
       setTimeout(() => {
         loading.style.display = 'none';
-        // Mostrar aplicação principal
-        const app = document.getElementById('app');
-        if (app) {
-          app.classList.remove('hidden');
-        }
+        // Não mostrar aplicação principal ainda - aguardar autenticação
       }, 300);
     }
     
@@ -337,31 +423,49 @@ function initApp() {
       if (user) {
         currentUser = user;
         hideAuthModal();
+        showMainApp();
         loadUserData();
         console.log('Usuário logado:', user.email);
+        
+        // Mostrar notificação de boas-vindas apenas para usuários logados
+        setTimeout(() => {
+          showNotification(`🎣 Bem-vindo ao Tilapios, ${user.displayName || user.email}!`, 'success', 5000);
+        }, 500);
       } else {
         currentUser = null;
+        hideMainApp();
         showAuthModal();
         console.log('Usuário não logado');
       }
     });
     
-    // Configurar navegação
-    setupNavigation();
-    
-    // Carregar dados
-    loadData();
-    
-    // Mostrar seção inicial (ranking)
-    showSection('ranking');
-    
-    // Mostrar notificação de boas-vindas
-    setTimeout(() => {
-      showNotification('🎣 Bem-vindo ao Ranking da Vara! Explore suas estatísticas de pesca.', 'success', 5000);
-    }, 500);
-    
     console.log('Aplicação inicializada!');
   }, 1000);
+}
+
+// Função para mostrar a aplicação principal (apenas para usuários autenticados)
+function showMainApp() {
+  const app = document.getElementById('app');
+  if (app) {
+    app.classList.remove('hidden');
+  }
+  
+  // Configurar navegação
+  setupNavigation();
+  
+  // Carregar dados
+  loadData();
+  
+  // Mostrar seção inicial (ranking)
+  showSection('ranking');
+}
+
+// Função para esconder a aplicação principal
+function hideMainApp() {
+  const app = document.getElementById('app');
+  if (app) {
+    app.classList.add('hidden');
+  }
 }
 
 // Configurar navegação
@@ -486,51 +590,152 @@ function loadData() {
 }
 
 // Carregar ranking
-function loadRanking() {
-  const container = document.getElementById('rankingList');
-  if (container) {
-    container.innerHTML = `
-      <div class="ranking-item winner">
-        <div class="rank">1</div>
-        <div class="info">
-          <h3>Igor</h3>
-          <p>6.0kg - Tilápia</p>
-          <small>Lago</small>
-        </div>
-        <div class="crown">👑</div>
-      </div>
-      <div class="ranking-item">
-        <div class="rank">2</div>
-        <div class="info">
-          <h3>João</h3>
-          <p>5.5kg - Tilápia</p>
-          <small>Rio</small>
-        </div>
-      </div>
-    `;
+async function loadRanking() {
+  try {
+    const allCaptures = await getAllCaptures();
+    const ranking = generateRanking(allCaptures);
+    displayRanking(ranking);
+  } catch (error) {
+    console.error('Erro ao carregar ranking:', error);
+    showNotification('Erro ao carregar ranking', 'error');
   }
 }
 
-// Carregar capturas
-function loadCatches() {
-  const container = document.getElementById('catchesList');
-  if (container) {
-    container.innerHTML = `
-      <div class="catch-item">
-        <div class="catch-info">
-          <h3>Tilápia</h3>
-          <p>6.0kg</p>
-          <small>Lago - 2024-01-15</small>
+// Obter todas as capturas para o ranking
+async function getAllCaptures() {
+  try {
+    const capturesQuery = query(
+      collection(db, 'captures'),
+      orderBy('weight', 'desc')
+    );
+    const capturesSnapshot = await getDocs(capturesQuery);
+    return capturesSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+  } catch (error) {
+    console.error('Erro ao obter capturas:', error);
+    return [];
+  }
+}
+
+// Gerar ranking baseado nas capturas
+function generateRanking(captures) {
+  if (!captures || captures.length === 0) return [];
+  
+  // Agrupar por usuário e encontrar a maior captura de cada um
+  const userBestCatches = {};
+  
+  captures.forEach(capture => {
+    const userId = capture.userId;
+    const weight = parseFloat(capture.weight) || 0;
+    
+    if (!userBestCatches[userId] || weight > userBestCatches[userId].weight) {
+      userBestCatches[userId] = {
+        userId,
+        userName: capture.userName || 'Pescador',
+        weight,
+        species: capture.species,
+        location: capture.location,
+        date: capture.date
+      };
+    }
+  });
+  
+  // Converter para array e ordenar por peso
+  return Object.values(userBestCatches)
+    .sort((a, b) => b.weight - a.weight)
+    .slice(0, 10); // Top 10
+}
+
+// Exibir ranking
+function displayRanking(ranking) {
+  const container = document.getElementById('rankingList');
+  if (!container) return;
+  
+  if (!ranking || ranking.length === 0) {
+    container.innerHTML = '<p class="no-data">Nenhuma captura registrada ainda. Seja o primeiro!</p>';
+    return;
+  }
+  
+  const rankingHTML = ranking.map((entry, index) => {
+    const position = index + 1;
+    const isWinner = position === 1;
+    const date = entry.date?.toDate ? entry.date.toDate() : new Date(entry.date);
+    
+    return `
+      <div class="ranking-item ${isWinner ? 'winner' : ''}">
+        <div class="rank">${position}</div>
+        <div class="info">
+          <h3>${entry.userName}</h3>
+          <p>${entry.weight}kg - ${entry.species}</p>
+          <small>${entry.location} - ${date.toLocaleDateString('pt-BR')}</small>
         </div>
+        ${isWinner ? '<div class="crown">👑</div>' : ''}
       </div>
+    `;
+  }).join('');
+  
+  container.innerHTML = rankingHTML;
+}
+
+// Carregar capturas
+async function loadCatches() {
+  if (!currentUser) return;
+  
+  try {
+    const userCapturesData = await getUserCaptures(currentUser.uid);
+    displayCatchesList(userCapturesData);
+  } catch (error) {
+    console.error('Erro ao carregar capturas:', error);
+    showNotification('Erro ao carregar capturas', 'error');
+  }
+}
+
+// Exibir lista de capturas
+function displayCatchesList(captures) {
+  const container = document.getElementById('catchesList');
+  if (!container) return;
+  
+  if (!captures || captures.length === 0) {
+    container.innerHTML = '<p class="no-data">Nenhuma captura registrada ainda. Que tal adicionar sua primeira pescaria?</p>';
+    return;
+  }
+  
+  const capturesHTML = captures.map(capture => {
+    const date = capture.date?.toDate ? capture.date.toDate() : new Date(capture.date);
+    return `
       <div class="catch-item">
         <div class="catch-info">
-          <h3>Tilápia</h3>
-          <p>5.2kg</p>
-          <small>Rio - 2024-01-10</small>
+          <h3>${capture.species}</h3>
+          <p>${capture.weight}kg</p>
+          <small>${capture.location} - ${date.toLocaleDateString('pt-BR')}</small>
+          ${capture.notes ? `<p class="catch-notes">${capture.notes}</p>` : ''}
+        </div>
+        <div class="catch-actions">
+          <button onclick="deleteCaptureConfirm('${capture.id}')" class="delete-btn">🗑️</button>
         </div>
       </div>
     `;
+  }).join('');
+  
+  container.innerHTML = capturesHTML;
+}
+
+// Confirmar exclusão de captura
+function deleteCaptureConfirm(captureId) {
+  if (confirm('Tem certeza que deseja excluir esta captura?')) {
+    deleteCapture(captureId);
+  }
+}
+
+// Excluir captura
+async function deleteCapture(captureId) {
+  try {
+    await deleteCaptureFromFirestore(captureId);
+    showNotification('Captura excluída com sucesso!', 'success');
+    loadCatches(); // Recarregar lista
+    loadProfile(); // Atualizar estatísticas do perfil
+  } catch (error) {
+    console.error('Erro ao excluir captura:', error);
+    showNotification('Erro ao excluir captura', 'error');
   }
 }
 
@@ -558,25 +763,311 @@ function loadAchievements() {
 }
 
 // Carregar perfil
-function loadProfile() {
-  const container = document.getElementById('profileInfo');
-  if (container) {
-    container.innerHTML = `
-      <div class="profile-stats">
-        <div class="stat">
-          <h3>15</h3>
-          <p>Capturas</p>
-        </div>
-        <div class="stat">
-          <h3>45.5kg</h3>
-          <p>Peso Total</p>
-        </div>
-        <div class="stat">
-          <h3>8</h3>
-          <p>Conquistas</p>
+async function loadProfile() {
+  if (!currentUser) return;
+  
+  try {
+    // Carregar dados do usuário
+    const userProfile = await getUserProfile(currentUser.uid);
+    const userCapturesData = await getUserCaptures(currentUser.uid);
+    
+    // Calcular estatísticas
+    const stats = calculateUserStats(userCapturesData);
+    
+    // Atualizar interface do perfil
+    updateProfileHeader(userProfile);
+    updateProfileStats(stats);
+    updateProfileHistory(userCapturesData);
+    
+  } catch (error) {
+    console.error('Erro ao carregar perfil:', error);
+    showNotification('Erro ao carregar dados do perfil', 'error');
+  }
+}
+
+// Obter perfil do usuário
+async function getUserProfile(userId) {
+  try {
+    const userDoc = await getDocs(query(collection(db, 'users'), where('uid', '==', userId)));
+    if (!userDoc.empty) {
+      return userDoc.docs[0].data();
+    } else {
+      // Criar perfil padrão se não existir
+      const defaultProfile = {
+        uid: userId,
+        displayName: currentUser.displayName || 'Pescador',
+        email: currentUser.email,
+        photoURL: currentUser.photoURL || '',
+        createdAt: new Date(),
+        nickname: currentUser.displayName || 'Pescador'
+      };
+      await addDoc(collection(db, 'users'), defaultProfile);
+      return defaultProfile;
+    }
+  } catch (error) {
+    console.error('Erro ao obter perfil:', error);
+    return null;
+  }
+}
+
+// Obter capturas do usuário
+async function getUserCaptures(userId) {
+  try {
+    const capturesQuery = query(
+      collection(db, 'captures'),
+      where('userId', '==', userId),
+      orderBy('date', 'desc')
+    );
+    const capturesSnapshot = await getDocs(capturesQuery);
+    return capturesSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+  } catch (error) {
+    console.error('Erro ao obter capturas:', error);
+    return [];
+  }
+}
+
+// Calcular estatísticas do usuário
+function calculateUserStats(captures) {
+  if (!captures || captures.length === 0) {
+    return {
+      totalCaptures: 0,
+      totalWeight: 0,
+      biggestFish: { weight: 0, species: '' },
+      fishingDays: 0,
+      averageWeight: 0
+    };
+  }
+  
+  const totalCaptures = captures.length;
+  const totalWeight = captures.reduce((sum, capture) => sum + (parseFloat(capture.weight) || 0), 0);
+  
+  // Encontrar maior peixe
+  const biggestFish = captures.reduce((biggest, capture) => {
+    const weight = parseFloat(capture.weight) || 0;
+    return weight > biggest.weight ? { weight, species: capture.species } : biggest;
+  }, { weight: 0, species: '' });
+  
+  // Calcular dias únicos de pesca
+  const uniqueDates = new Set(captures.map(capture => {
+    const date = capture.date?.toDate ? capture.date.toDate() : new Date(capture.date);
+    return date.toDateString();
+  }));
+  const fishingDays = uniqueDates.size;
+  
+  const averageWeight = totalCaptures > 0 ? totalWeight / totalCaptures : 0;
+  
+  return {
+    totalCaptures,
+    totalWeight,
+    biggestFish,
+    fishingDays,
+    averageWeight
+  };
+}
+
+// Atualizar cabeçalho do perfil
+function updateProfileHeader(userProfile) {
+  const profilePhoto = document.getElementById('profilePhoto');
+  const profileName = document.getElementById('profileName');
+  const profileEmail = document.getElementById('profileEmail');
+  
+  if (profilePhoto) {
+    profilePhoto.src = userProfile?.photoURL || 'https://via.placeholder.com/80x80?text=👤';
+  }
+  
+  if (profileName) {
+    profileName.textContent = userProfile?.nickname || userProfile?.displayName || 'Pescador';
+  }
+  
+  if (profileEmail) {
+    profileEmail.textContent = userProfile?.email || currentUser?.email || '';
+  }
+}
+
+// Atualizar estatísticas do perfil
+function updateProfileStats(stats) {
+  const elements = {
+    totalCaptures: document.getElementById('totalCaptures'),
+    totalWeight: document.getElementById('totalWeight'),
+    fishingDays: document.getElementById('fishingDays'),
+    biggestFish: document.getElementById('biggestFish'),
+    averageWeight: document.getElementById('averageWeight')
+  };
+  
+  if (elements.totalCaptures) {
+    elements.totalCaptures.textContent = stats.totalCaptures;
+  }
+  
+  if (elements.totalWeight) {
+    elements.totalWeight.textContent = `${stats.totalWeight.toFixed(1)}kg`;
+  }
+  
+  if (elements.fishingDays) {
+    elements.fishingDays.textContent = stats.fishingDays;
+  }
+  
+  if (elements.biggestFish) {
+    elements.biggestFish.textContent = stats.biggestFish.weight > 0 
+      ? `${stats.biggestFish.weight.toFixed(1)}kg (${stats.biggestFish.species})`
+      : 'Nenhum';
+  }
+  
+  if (elements.averageWeight) {
+    elements.averageWeight.textContent = `${stats.averageWeight.toFixed(1)}kg`;
+  }
+}
+
+// Atualizar histórico do perfil
+function updateProfileHistory(captures) {
+  const historyContainer = document.getElementById('profileHistory');
+  if (!historyContainer) return;
+  
+  if (!captures || captures.length === 0) {
+    historyContainer.innerHTML = '<p class="no-data">Nenhuma captura registrada ainda.</p>';
+    return;
+  }
+  
+  const historyHTML = captures.slice(0, 10).map(capture => {
+    const date = capture.date?.toDate ? capture.date.toDate() : new Date(capture.date);
+    return `
+      <div class="history-item">
+        <div class="history-date">${date.toLocaleDateString('pt-BR')}</div>
+        <div class="history-details">
+          <strong>${capture.species}</strong> - ${capture.weight}kg
+          <br><small>${capture.location}</small>
         </div>
       </div>
     `;
+  }).join('');
+  
+  historyContainer.innerHTML = historyHTML;
+}
+
+// Abrir modal de edição de perfil
+function openEditProfileModal() {
+  const modal = document.getElementById('editProfileModal');
+  if (modal && currentUser) {
+    // Preencher campos com dados atuais
+    const nicknameInput = document.getElementById('editNickname');
+    const emailInput = document.getElementById('editEmail');
+    
+    if (nicknameInput) {
+      nicknameInput.value = currentUser.displayName || '';
+    }
+    
+    if (emailInput) {
+      emailInput.value = currentUser.email || '';
+    }
+    
+    modal.style.display = 'block';
+  }
+}
+
+// Fechar modal de edição de perfil
+function closeEditProfileModal() {
+  const modal = document.getElementById('editProfileModal');
+  if (modal) {
+    modal.style.display = 'none';
+    // Limpar campos de senha
+    const newPasswordInput = document.getElementById('newPassword');
+    const confirmPasswordInput = document.getElementById('confirmPassword');
+    if (newPasswordInput) newPasswordInput.value = '';
+    if (confirmPasswordInput) confirmPasswordInput.value = '';
+  }
+}
+
+// Salvar alterações do perfil
+async function saveProfileChanges() {
+  if (!currentUser) return;
+  
+  try {
+    const nickname = document.getElementById('editNickname')?.value;
+    const newPassword = document.getElementById('newPassword')?.value;
+    const confirmPassword = document.getElementById('confirmPassword')?.value;
+    
+    // Validar senha se fornecida
+    if (newPassword) {
+      if (newPassword !== confirmPassword) {
+        showNotification('As senhas não coincidem', 'error');
+        return;
+      }
+      if (newPassword.length < 6) {
+        showNotification('A senha deve ter pelo menos 6 caracteres', 'error');
+        return;
+      }
+    }
+    
+    // Atualizar perfil no Firebase Auth
+    if (nickname && nickname !== currentUser.displayName) {
+      await updateProfile(currentUser, { displayName: nickname });
+    }
+    
+    // Atualizar perfil no Firestore
+    const userQuery = query(collection(db, 'users'), where('uid', '==', currentUser.uid));
+    const userSnapshot = await getDocs(userQuery);
+    
+    if (!userSnapshot.empty) {
+      const userDocRef = doc(db, 'users', userSnapshot.docs[0].id);
+      await updateDoc(userDocRef, {
+        nickname: nickname,
+        displayName: nickname,
+        updatedAt: new Date()
+      });
+    }
+    
+    closeEditProfileModal();
+    showNotification('Perfil atualizado com sucesso!', 'success');
+    loadProfile(); // Recarregar perfil
+    
+  } catch (error) {
+    console.error('Erro ao salvar perfil:', error);
+    showNotification('Erro ao atualizar perfil', 'error');
+  }
+}
+
+// Alterar foto de perfil
+function changeProfilePhoto() {
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = 'image/*';
+  input.onchange = handlePhotoUpload;
+  input.click();
+}
+
+// Processar upload de foto
+async function handlePhotoUpload(event) {
+  const file = event.target.files[0];
+  if (!file || !currentUser) return;
+  
+  try {
+    // Converter para base64 para armazenamento simples
+    const reader = new FileReader();
+    reader.onload = async function(e) {
+      const photoURL = e.target.result;
+      
+      // Atualizar no Firebase Auth
+      await updateProfile(currentUser, { photoURL });
+      
+      // Atualizar no Firestore
+      const userQuery = query(collection(db, 'users'), where('uid', '==', currentUser.uid));
+      const userSnapshot = await getDocs(userQuery);
+      
+      if (!userSnapshot.empty) {
+        const userDocRef = doc(db, 'users', userSnapshot.docs[0].id);
+        await updateDoc(userDocRef, {
+          photoURL: photoURL,
+          updatedAt: new Date()
+        });
+      }
+      
+      showNotification('Foto atualizada com sucesso!', 'success');
+      loadProfile(); // Recarregar perfil
+    };
+    reader.readAsDataURL(file);
+    
+  } catch (error) {
+    console.error('Erro ao fazer upload da foto:', error);
+    showNotification('Erro ao atualizar foto', 'error');
   }
 }
 
@@ -878,16 +1369,7 @@ function confirmDeleteCapture(captureId) {
   }
 }
 
-// Excluir captura
-async function deleteCapture(captureId) {
-  try {
-    await deleteCaptureFromFirestore(captureId);
-    showNotification('🗑️ Captura excluída com sucesso!', 'success');
-  } catch (error) {
-    console.error('Erro ao excluir captura:', error);
-    showNotification('❌ Erro ao excluir captura. Tente novamente.', 'error');
-  }
-}
+
 
 function updateStatistics(captures) {
   const totalCaptures = captures.length;
@@ -920,69 +1402,6 @@ function updateRankingDisplay(captures) {
     }
 
 // ===== SISTEMA DE AUTENTICAÇÃO =====
-
-// Adicionar botão de logout
-function addLogoutButton() {
-  const header = document.querySelector('header .flex.items-center.justify-between');
-  if (header && !document.getElementById('logout-btn')) {
-    const logoutBtn = document.createElement('button');
-    logoutBtn.id = 'logout-btn';
-    logoutBtn.className = 'hidden bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition-colors';
-    logoutBtn.innerHTML = '<i class="fas fa-sign-out-alt mr-2"></i>Sair';
-    logoutBtn.addEventListener('click', handleLogout);
-    header.appendChild(logoutBtn);
-  }
-}
-
-// Manipular logout
-async function handleLogout() {
-  try {
-    await signOut(auth);
-    console.log('Logout realizado com sucesso');
-  } catch (error) {
-    console.error('Erro no logout:', error);
-  }
-}
-
-// Carregar dados do usuário
-async function loadUserData() {
-  if (!currentUser) return;
-  
-  try {
-    // Mostrar botão de logout
-    const logoutBtn = document.getElementById('logout-btn');
-    if (logoutBtn) {
-      logoutBtn.classList.remove('hidden');
-    }
-    
-    // Carregar capturas do Firestore
-    const capturesQuery = query(
-      collection(db, 'captures'),
-      where('userId', '==', currentUser.uid),
-      orderBy('timestamp', 'desc')
-    );
-    
-    const querySnapshot = await getDocs(capturesQuery);
-    userCapturesData = [];
-    
-    querySnapshot.forEach((doc) => {
-      userCapturesData.push({
-        id: doc.id,
-        ...doc.data()
-      });
-    });
-    
-    // Atualizar interface
-    updateCapturesDisplay();
-    updateStatistics();
-    updateRankingDisplay();
-    
-    console.log(`Carregadas ${userCapturesData.length} capturas do usuário`);
-    
-  } catch (error) {
-    console.error('Erro ao carregar dados do usuário:', error);
-  }
-}
 
 // Salvar captura no Firestore
 async function saveCaptureToFirestore(captureData) {

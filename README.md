@@ -1,4 +1,4 @@
-# Ranking da Vara 🐟
+# Tilapios 🐟
 
 Um app de ranking de pescaria com mural de capturas, comentários e curtidas, feito com HTML, TailwindCSS e Firebase.
 
@@ -29,4 +29,4 @@ Você pode hospedar a pasta `public/` em qualquer serviço de hospedagem estáti
 - Para produção, configure regras de segurança adequadas no Firebase.
 
 ---
-Feito com �� para pescadores! 
+Feito com �� para pescadores!

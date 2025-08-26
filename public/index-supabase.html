@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tilapios - Competição de Pesca (Supabase)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐟</text></svg>">
+</head>
+<body class="bg-gray-50 font-inter">
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="fixed inset-0 bg-white z-50 flex items-center justify-center">
+        <div class="text-center">
+            <div class="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-600 mx-auto mb-4"></div>
+            <h2 class="text-xl font-semibold text-gray-800 mb-2">Tilapios</h2>
+            <p class="text-gray-600">Carregando competição de pesca...</p>
+        </div>
+    </div>
+
+    <!-- Main App -->
+    <div id="app" class="hidden min-h-screen">
+        <!-- Header -->
+        <header class="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-40">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center h-16">
+                    <!-- Logo -->
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-fish text-white text-lg"></i>
+                        </div>
+                        <div>
+                            <h1 class="text-xl font-bold text-gray-900">Tilapios</h1>
+                            <p class="text-sm text-gray-500">Competição de Pesca</p>
+                        </div>
+                    </div>
+
+                    <!-- Desktop Navigation -->
+                    <nav class="hidden md:flex items-center space-x-4">
+                        <button id="btn-ranking" class="nav-btn active" data-section="ranking">
+                            <i class="fas fa-trophy"></i>
+                            <span>Ranking</span>
+                        </button>
+                        <button id="btn-catches" class="nav-btn" data-section="catches">
+                            <i class="fas fa-fish"></i>
+                            <span>Capturas</span>
+                        </button>
+                        <button id="btn-badges" class="nav-btn" data-section="achievements">
+                            <i class="fas fa-medal"></i>
+                            <span>Conquistas</span>
+                        </button>
+                        <button id="btn-add-catch" class="btn-primary">
+                            <i class="fas fa-plus"></i>
+                            <span>Nova Captura</span>
+                        </button>
+                    </nav>
+
+                    <!-- User Menu (Desktop) -->
+                    <div class="hidden md:block">
+                        <div id="user-menu" class="relative">
+                            <button id="user-menu-button" class="flex items-center space-x-2 text-gray-700 hover:text-blue-600 focus:outline-none">
+                                <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-user text-blue-600"></i>
+                                </div>
+                                <span id="user-name" class="font-medium">Carregando...</span>
+                                <i class="fas fa-chevron-down text-xs"></i>
+                            </button>
+                            <div id="user-dropdown" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50">
+                                <a href="#" id="logout-btn" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                    <i class="fas fa-sign-out-alt mr-2"></i> Sair
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mobile Menu Button -->
+                    <div class="md:hidden">
+                        <button id="mobile-menu-btn" class="text-gray-500 hover:text-blue-600 focus:outline-none">
+                            <i class="fas fa-bars text-xl"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="md:hidden hidden bg-white border-t border-gray-200 py-2">
+                <div class="px-4 space-y-2">
+                    <button class="nav-btn-mobile active" data-section="ranking">
+                        <i class="fas fa-trophy"></i>
+                        <span>Ranking</span>
+                    </button>
+                    <button class="nav-btn-mobile" data-section="catches">
+                        <i class="fas fa-fish"></i>
+                        <span>Capturas</span>
+                    </button>
+                    <button class="nav-btn-mobile" data-section="achievements">
+                        <i class="fas fa-medal"></i>
+                        <span>Conquistas</span>
+                    </button>
+                    <button id="btn-add-catch-2" class="btn-primary w-full">
+                        <i class="fas fa-plus"></i>
+                        <span>Nova Captura</span>
+                    </button>
+                    <div class="border-t border-gray-200 pt-2 mt-2">
+                        <div class="flex items-center space-x-2 mb-2">
+                            <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                                <i class="fas fa-user text-blue-600"></i>
+                            </div>
+                            <span id="user-name-mobile" class="font-medium">Carregando...</span>
+                        </div>
+                        <button id="logout-btn-mobile" class="text-red-600 flex items-center space-x-2">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Sair</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <!-- Seções da aplicação -->
+            <div id="ranking-section" class="app-section">
+                <h2 class="section-title">Ranking de Pescadores</h2>
+                <div class="section-content">
+                    <div id="ranking-list" class="space-y-4">
+                        <!-- Conteúdo do ranking será inserido aqui via JavaScript -->
+                        <div class="loading-placeholder">
+                            <div class="animate-pulse flex space-x-4">
+                                <div class="rounded-full bg-gray-200 h-12 w-12"></div>
+                                <div class="flex-1 space-y-2 py-1">
+                                    <div class="h-4 bg-gray-200 rounded w-3/4"></div>
+                                    <div class="h-4 bg-gray-200 rounded w-1/2"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="catches-section" class="app-section hidden">
+                <h2 class="section-title">Minhas Capturas</h2>
+                <div class="section-content">
+                    <div id="catches-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <!-- Conteúdo das capturas será inserido aqui via JavaScript -->
+                        <div class="loading-placeholder">
+                            <div class="animate-pulse space-y-2">
+                                <div class="h-40 bg-gray-200 rounded"></div>
+                                <div class="h-4 bg-gray-200 rounded w-3/4"></div>
+                                <div class="h-4 bg-gray-200 rounded w-1/2"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="no-catches" class="hidden text-center py-8">
+                        <div class="text-gray-400 text-6xl mb-4">
+                            <i class="fas fa-fish"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-700 mb-2">Nenhuma captura registrada</h3>
+                        <p class="text-gray-500 mb-4">Registre suas capturas para acompanhar seu progresso!</p>
+                        <button id="btn-add-catch-3" class="btn-primary">
+                            <i class="fas fa-plus"></i>
+                            <span>Nova Captura</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="achievements-section" class="app-section hidden">
+                <h2 class="section-title">Minhas Conquistas</h2>
+                <div class="section-content">
+                    <div id="achievements-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <!-- Conteúdo das conquistas será inserido aqui via JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-white border-t border-gray-200 py-4">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <div class="text-gray-500 text-sm mb-4 md:mb-0">
+                        &copy; 2023 Tilapios. Todos os direitos reservados.
+                    </div>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-blue-600">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-blue-600">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-blue-600">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Modal de Autenticação -->
+    <div id="auth-modal" class="modal">
+        <div class="modal-content max-w-md">
+            <div class="modal-header">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-fish text-white text-lg"></i>
+                    </div>
+                    <h2 class="text-xl font-bold">Tilapios</h2>
+                </div>
+            </div>
+            
+            <!-- Formulário de Login -->
+            <div id="login-form" class="auth-form">
+                <h3 class="text-lg font-semibold mb-4">Entrar na sua conta</h3>
+                <form id="login-form-element">
+                    <div class="form-group">
+                        <label for="login-email">Email</label>
+                        <input type="email" id="login-email" required placeholder="seu@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="login-password">Senha</label>
+                        <input type="password" id="login-password" required placeholder="Sua senha">
+                    </div>
+                    <button type="submit" class="btn-primary w-full">
+                        <span>Entrar</span>
+                    </button>
+                </form>
+                <div class="mt-4 text-center">
+                    <a href="#" id="show-forgot-password" class="text-sm text-blue-600 hover:underline">Esqueceu a senha?</a>
+                </div>
+                <div class="mt-4 text-center">
+                    <p class="text-sm text-gray-600">Não tem uma conta? <a href="#" id="show-register" class="text-blue-600 hover:underline">Cadastre-se</a></p>
+                </div>
+            </div>
+            
+            <!-- Formulário de Cadastro -->
+            <div id="register-form" class="auth-form hidden">
+                <h3 class="text-lg font-semibold mb-4">Criar uma nova conta</h3>
+                <form id="register-form-element">
+                    <div class="form-group">
+                        <label for="register-name">Nome</label>
+                        <input type="text" id="register-name" required placeholder="Seu nome">
+                    </div>
+                    <div class="form-group">
+                        <label for="register-email">Email</label>
+                        <input type="email" id="register-email" required placeholder="seu@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="register-password">Senha</label>
+                        <input type="password" id="register-password" required placeholder="Mínimo 6 caracteres">
+                    </div>
+                    <div class="form-group">
+                        <label for="register-confirm-password">Confirmar Senha</label>
+                        <input type="password" id="register-confirm-password" required placeholder="Confirme sua senha">
+                    </div>
+                    <button type="submit" class="btn-primary w-full">
+                        <span>Cadastrar</span>
+                    </button>
+                </form>
+                <div class="mt-4 text-center">
+                    <p class="text-sm text-gray-600">Já tem uma conta? <a href="#" id="show-login" class="text-blue-600 hover:underline">Entrar</a></p>
+                </div>
+            </div>
+            
+            <!-- Formulário de Recuperação de Senha -->
+            <div id="forgot-password-form" class="auth-form hidden">
+                <h3 class="text-lg font-semibold mb-4">Recuperar senha</h3>
+                <p class="text-sm text-gray-600 mb-4">Informe seu email para receber um link de recuperação de senha.</p>
+                <form id="forgot-password-form-element">
+                    <div class="form-group">
+                        <label for="forgot-email">Email</label>
+                        <input type="email" id="forgot-email" required placeholder="seu@email.com">
+                    </div>
+                    <button type="submit" class="btn-primary w-full">
+                        <span>Enviar link de recuperação</span>
+                    </button>
+                </form>
+                <div class="mt-4 text-center">
+                    <a href="#" id="back-to-login" class="text-sm text-blue-600 hover:underline">Voltar para o login</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Nova Captura -->
+    <div id="capture-modal" class="modal">
+        <div class="modal-content max-w-lg">
+            <div class="modal-header">
+                <h2 class="text-xl font-bold">Registrar Nova Captura</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <form id="capture-form">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="form-group md:col-span-2">
+                        <label for="fish-name">Nome do Peixe</label>
+                        <input type="text" id="fish-name" required placeholder="Ex: Tilápia, Tucunaré, etc.">
+                    </div>
+                    <div class="form-group">
+                        <label for="fish-weight">Peso (kg)</label>
+                        <input type="number" id="fish-weight" required min="0.1" step="0.1" placeholder="Ex: 2.5">
+                    </div>
+                    <div class="form-group">
+                        <label for="fish-length">Comprimento (cm)</label>
+                        <input type="number" id="fish-length" required min="1" placeholder="Ex: 45">
+                    </div>
+                    <div class="form-group md:col-span-2">
+                        <label for="fish-location">Local da Captura</label>
+                        <input type="text" id="fish-location" placeholder="Ex: Lago Azul, Rio Grande, etc.">
+                    </div>
+                    <div class="form-group md:col-span-2">
+                        <label for="fish-notes">Observações</label>
+                        <textarea id="fish-notes" rows="3" placeholder="Detalhes sobre a captura, isca utilizada, etc."></textarea>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <button type="submit" class="btn-primary w-full">
+                        <i class="fas fa-save mr-2"></i>
+                        <span>Registrar Captura</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Notificações -->
+    <div id="notification-container" class="fixed bottom-4 right-4 z-50"></div>
+
+    <!-- Scripts -->
+    <script type="module" src="app-supabase.js"></script>
+</body>
+</html>

@@ -164,6 +164,6 @@ Para problemas ou dúvidas:
 
 ---
 
-**Projeto:** Tilapios - Ranking da Vara 🐟  
+**Projeto:** Tilapios 🐟  
 **URL:** https://pescador-79e00.web.app  
 **Versão MCP:** 1.0.0

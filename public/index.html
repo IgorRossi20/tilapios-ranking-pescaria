@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ranking da Vara - Competição de Pesca</title>
+    <title>Tilapios - Competição de Pesca</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -15,7 +15,7 @@
     <div id="loading-screen" class="fixed inset-0 bg-white z-50 flex items-center justify-center">
         <div class="text-center">
             <div class="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-600 mx-auto mb-4"></div>
-            <h2 class="text-xl font-semibold text-gray-800 mb-2">Ranking da Vara</h2>
+            <h2 class="text-xl font-semibold text-gray-800 mb-2">Tilapios</h2>
             <p class="text-gray-600">Carregando competição de pesca...</p>
         </div>
     </div>
@@ -32,7 +32,7 @@
                             <i class="fas fa-fish text-white text-lg"></i>
                         </div>
                         <div>
-                            <h1 class="text-xl font-bold text-gray-900">Ranking da Vara</h1>
+                            <h1 class="text-xl font-bold text-gray-900">Tilapios</h1>
                             <p class="text-sm text-gray-500">Competição de Pesca</p>
                         </div>
                     </div>
@@ -216,10 +216,113 @@
 
             <!-- Profile Section -->
             <section id="profile-section" class="hidden space-y-8">
+                <!-- Cabeçalho do Perfil -->
+                <div class="bg-gradient-to-r from-blue-500 to-cyan-500 rounded-2xl shadow-lg p-8 text-white">
+                    <div class="flex flex-col md:flex-row items-center gap-6">
+                        <div class="relative">
+                            <div id="profile-photo-container" class="w-24 h-24 rounded-full bg-white bg-opacity-20 flex items-center justify-center overflow-hidden border-4 border-white border-opacity-30">
+                                <img id="profile-photo" src="" alt="Foto do perfil" class="w-full h-full object-cover hidden">
+                                <i id="profile-photo-placeholder" class="fas fa-user text-4xl text-white"></i>
+                            </div>
+                            <button id="change-photo-btn" class="absolute -bottom-2 -right-2 w-8 h-8 bg-white text-blue-500 rounded-full flex items-center justify-center shadow-lg hover:bg-gray-50 transition-colors">
+                                <i class="fas fa-camera text-sm"></i>
+                            </button>
+                            <input type="file" id="photo-upload" accept="image/*" class="hidden">
+                        </div>
+                        <div class="text-center md:text-left flex-1">
+                            <h2 id="profile-name" class="text-3xl font-bold mb-2">Carregando...</h2>
+                            <p id="profile-email" class="text-blue-100 mb-4">Carregando...</p>
+                            <div class="flex flex-wrap gap-4 justify-center md:justify-start">
+                                <div class="text-center">
+                                    <div id="total-catches" class="text-2xl font-bold">0</div>
+                                    <div class="text-sm text-blue-100">Capturas</div>
+                                </div>
+                                <div class="text-center">
+                                    <div id="fishing-days" class="text-2xl font-bold">0</div>
+                                    <div class="text-sm text-blue-100">Dias Pescando</div>
+                                </div>
+                                <div class="text-center">
+                                    <div id="biggest-fish" class="text-2xl font-bold">0kg</div>
+                                    <div class="text-sm text-blue-100">Maior Peixe</div>
+                                </div>
+                            </div>
+                        </div>
+                        <button id="edit-profile-btn" class="btn-secondary bg-white bg-opacity-20 border-white border-opacity-30 text-white hover:bg-opacity-30">
+                            <i class="fas fa-edit mr-2"></i>
+                            Editar Perfil
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Estatísticas Detalhadas -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-6">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                                <i class="fas fa-fish text-green-600 text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-gray-900">Total de Capturas</h3>
+                                <p class="text-sm text-gray-600">Peixes capturados</p>
+                            </div>
+                        </div>
+                        <div id="stats-total-catches" class="text-3xl font-bold text-green-600">0</div>
+                    </div>
+
+                    <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-6">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                                <i class="fas fa-weight-hanging text-blue-600 text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-gray-900">Peso Total</h3>
+                                <p class="text-sm text-gray-600">Quilos capturados</p>
+                            </div>
+                        </div>
+                        <div id="stats-total-weight" class="text-3xl font-bold text-blue-600">0kg</div>
+                    </div>
+
+                    <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-6">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
+                                <i class="fas fa-calendar-alt text-purple-600 text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-gray-900">Dias Ativos</h3>
+                                <p class="text-sm text-gray-600">Dias pescando</p>
+                            </div>
+                        </div>
+                        <div id="stats-fishing-days" class="text-3xl font-bold text-purple-600">0</div>
+                    </div>
+                </div>
+
+                <!-- Histórico de Pescarias -->
                 <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-8">
-                    <h2 class="text-2xl font-bold text-gray-900 mb-8">👤 Meu Perfil</h2>
-                    <div id="profile-content">
-                        <!-- Profile content will be inserted here -->
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-xl font-bold text-gray-900 flex items-center gap-2">
+                            <i class="fas fa-history text-blue-600"></i>
+                            Histórico de Pescarias
+                        </h3>
+                        <select id="history-filter" class="form-select">
+                            <option value="all">Todas</option>
+                            <option value="week">Esta Semana</option>
+                            <option value="month">Este Mês</option>
+                            <option value="year">Este Ano</option>
+                        </select>
+                    </div>
+                    <div id="fishing-history" class="space-y-4">
+                        <!-- Histórico será carregado aqui -->
+                    </div>
+                </div>
+
+                <!-- Conquistas Pessoais -->
+                <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-8">
+                    <h3 class="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+                        <i class="fas fa-trophy text-yellow-500"></i>
+                        Suas Conquistas
+                    </h3>
+                    <div id="personal-achievements" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <!-- Conquistas serão carregadas aqui -->
                     </div>
                 </div>
             </section>
@@ -233,7 +336,7 @@
                 <div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full flex items-center justify-center mx-auto mb-4">
                     <i class="fas fa-fish text-white text-2xl"></i>
                 </div>
-                <h2 class="text-2xl font-bold text-gray-900">Ranking da Vara</h2>
+                <h2 class="text-2xl font-bold text-gray-900">Tilapios</h2>
                 <p class="text-gray-600">Entre para participar da competição</p>
             </div>
             
@@ -346,6 +449,92 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- Modal Editar Perfil -->
+    <div id="edit-profile-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-2xl shadow-xl max-w-md w-full p-6 max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-gray-900 flex items-center gap-2">
+                    <i class="fas fa-user-edit text-blue-600"></i>
+                    Editar Perfil
+                </h2>
+                <button id="close-edit-profile-modal" class="text-gray-400 hover:text-gray-600 transition-colors">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            
+            <form id="edit-profile-form" class="space-y-6">
+                <!-- Foto de Perfil -->
+                <div class="text-center">
+                    <div class="relative inline-block">
+                        <div id="edit-profile-photo-container" class="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center overflow-hidden border-4 border-gray-200 mx-auto">
+                            <img id="edit-profile-photo" src="" alt="Foto do perfil" class="w-full h-full object-cover hidden">
+                            <i id="edit-profile-photo-placeholder" class="fas fa-user text-2xl text-gray-400"></i>
+                        </div>
+                        <button type="button" id="edit-change-photo-btn" class="absolute -bottom-1 -right-1 w-6 h-6 bg-blue-500 text-white rounded-full flex items-center justify-center shadow-lg hover:bg-blue-600 transition-colors">
+                            <i class="fas fa-camera text-xs"></i>
+                        </button>
+                        <input type="file" id="edit-photo-upload" accept="image/*" class="hidden">
+                    </div>
+                    <p class="text-sm text-gray-600 mt-2">Clique no ícone da câmera para alterar</p>
+                </div>
+
+                <!-- Nome/Apelido -->
+                <div>
+                    <label for="edit-display-name" class="block text-sm font-medium text-gray-700 mb-2">
+                        <i class="fas fa-user mr-1"></i> Nome de Exibição
+                    </label>
+                    <input type="text" id="edit-display-name" class="form-input w-full" placeholder="Seu nome ou apelido" required>
+                </div>
+
+                <!-- Email (somente leitura) -->
+                <div>
+                    <label for="edit-email" class="block text-sm font-medium text-gray-700 mb-2">
+                        <i class="fas fa-envelope mr-1"></i> Email
+                    </label>
+                    <input type="email" id="edit-email" class="form-input w-full bg-gray-50" readonly>
+                    <p class="text-xs text-gray-500 mt-1">O email não pode ser alterado</p>
+                </div>
+
+                <!-- Alterar Senha -->
+                <div class="border-t pt-4">
+                    <h4 class="font-medium text-gray-900 mb-3">Alterar Senha</h4>
+                    <div class="space-y-3">
+                        <div>
+                            <label for="current-password" class="block text-sm font-medium text-gray-700 mb-2">
+                                <i class="fas fa-lock mr-1"></i> Senha Atual
+                            </label>
+                            <input type="password" id="current-password" class="form-input w-full" placeholder="Digite sua senha atual">
+                        </div>
+                        <div>
+                            <label for="new-password" class="block text-sm font-medium text-gray-700 mb-2">
+                                <i class="fas fa-key mr-1"></i> Nova Senha
+                            </label>
+                            <input type="password" id="new-password" class="form-input w-full" placeholder="Digite a nova senha" minlength="6">
+                        </div>
+                        <div>
+                            <label for="confirm-new-password" class="block text-sm font-medium text-gray-700 mb-2">
+                                <i class="fas fa-key mr-1"></i> Confirmar Nova Senha
+                            </label>
+                            <input type="password" id="confirm-new-password" class="form-input w-full" placeholder="Confirme a nova senha" minlength="6">
+                        </div>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-2">Deixe em branco se não quiser alterar a senha</p>
+                </div>
+
+                <!-- Botões -->
+                <div class="flex gap-3 pt-4">
+                    <button type="button" id="cancel-edit-profile" class="flex-1 btn-secondary">
+                        Cancelar
+                    </button>
+                    <button type="submit" class="flex-1 btn-primary">
+                        <i class="fas fa-save mr-2"></i>
+                        Salvar Alterações
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 

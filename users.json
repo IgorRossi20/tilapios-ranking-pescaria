@@ -1,0 +1,34 @@
+{"users": [
+{
+  "localId": "3J1Bk4QM7aeopDNtS1nqNbduOZR2",
+  "email": "teste@example.com",
+  "emailVerified": false,
+  "passwordHash": "nru005dxlbeXs70EK8+c4mBE5X3LG0HZXkB0acMBvFPg8QXslJpuyOC1fmVDkHGgDNqRORAIPscy9qYyYyYVuA==",
+  "salt": "bPXWMQuFVrG4tg==",
+  "displayName": "Usuário de Teste",
+  "photoUrl": "https://example.com/photo.jpg",
+  "createdAt": "1755261089146",
+  "disabled": false,
+  "providerUserInfo": []
+},
+{
+  "localId": "9w1AYNHCAZV0vmVbE9yJchl5fvy1",
+  "email": "teste@tilapios.com",
+  "emailVerified": false,
+  "passwordHash": "+jk02y/62wJQ6aduyqE7UUJazT+LTozrZzUVQ/k0Y4ToO6kooXfaWB4WimqaIUnslHdA+porjQ9RD0KYSYiCoQ==",
+  "salt": "S4UzeE5g9V6X3g==",
+  "lastSignedInAt": "1756176593576",
+  "createdAt": "1756176593576",
+  "providerUserInfo": []
+},
+{
+  "localId": "rOLE0fawdxWa2wZG43b8oqLSz322",
+  "email": "igor.rossi10@gmail.com",
+  "emailVerified": false,
+  "passwordHash": "rU0HThorlcdaRgyQ7PlB0rU79WVDS1EoJhnCl45Ndj5rvnQ/2lptNRuBuysLvtkz4nyM//pvaK7KCEgjLppvBA==",
+  "salt": "I1d7ciJHn5THQg==",
+  "displayName": "igor",
+  "lastSignedInAt": "1756176135351",
+  "createdAt": "1756175038691",
+  "providerUserInfo": []
+}]}
